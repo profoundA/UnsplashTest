@@ -28,30 +28,6 @@ class NetworkService {
             }
     }
     
-//    func searchPhotos(query: String, completion: @escaping (SearchResults?) -> Void) {
-//
-//        let urlString = "\(baseUrlString)/search/photos?page=1&per_page=20&query=\(query)&orientation=squarish&client_id=\(accessKey)"
-//
-//        guard let url = URL(string: urlString) else { return }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            guard
-//                let data = data,
-//                error == nil,
-//                let response = response as? HTTPURLResponse,
-//                response.statusCode >= 200 && response.statusCode < 300 else { return }
-//
-//            do {
-//                let photos = try JSONDecoder().decode(SearchResults.self, from: data)
-//                DispatchQueue.main.async {
-//                    completion(photos)
-//                }
-//            } catch let error {
-//                print(error)
-//            }
-//        }.resume()
-//    }
-    
     func searchPhotos(searchText: String, completion: @escaping (PhotoModel?) -> Void) {
         AF.request("\(url)/search/photos?page=1&per_page=30&query=\(searchText)&client_id=\(accessKey)")
             .responseDecodable(of: PhotoModel.self) { response in
